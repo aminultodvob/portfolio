@@ -61,6 +61,25 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        /* ── Midnight Sage palette tokens ── */
+        mint: {
+          50: "#edfaf4",
+          100: "#d2f5e6",
+          200: "#a6e9ce",
+          300: "#6dd6af",
+          400: "#38c99a",   /* main sage-mint */
+          500: "#28b589",
+          600: "#1e9470",
+          700: "#18775a",
+          800: "#165f49",
+          900: "#154f3d",
+        },
+        gemini: {
+          dark: "#0d1018",
+          surface: "#131720",
+          card: "#1b2030",
+          border: "#232938",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

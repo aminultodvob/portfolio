@@ -26,7 +26,7 @@ const Footer = () => {
       <div className="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <div className="flex items-center gap-2 text-sm text-muted-foreground">
           <Droplets className="w-4 h-4 text-primary" />
-          © {year} {name}. Built at the intersection of bits and water.
+          © {year} {name}.
         </div>
         <div className="flex items-center gap-6">
           {about.linkedin && (
