@@ -1,0 +1,119 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 210 25% 8%;
+    --foreground: 180 10% 95%;
+
+    --card: 210 20% 12%;
+    --card-foreground: 180 10% 95%;
+
+    --popover: 210 20% 12%;
+    --popover-foreground: 180 10% 95%;
+
+    --primary: 174 72% 50%;
+    --primary-foreground: 210 25% 8%;
+
+    --secondary: 210 15% 18%;
+    --secondary-foreground: 180 10% 85%;
+
+    --muted: 210 15% 16%;
+    --muted-foreground: 210 10% 55%;
+
+    --accent: 174 72% 50%;
+    --accent-foreground: 210 25% 8%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 210 15% 18%;
+    --input: 210 15% 18%;
+    --ring: 174 72% 50%;
+
+    --radius: 0.75rem;
+
+    --font-display: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  .light {
+    --background: 210 20% 98%;
+    --foreground: 210 25% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 210 25% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 25% 10%;
+
+    --primary: 174 72% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 210 15% 93%;
+    --secondary-foreground: 210 20% 30%;
+
+    --muted: 210 15% 95%;
+    --muted-foreground: 210 10% 45%;
+
+    --accent: 174 72% 38%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 15% 88%;
+    --input: 210 15% 88%;
+    --ring: 174 72% 38%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-display);
+  }
+}
+
+@layer utilities {
+  .glass-card {
+    @apply bg-card/60 backdrop-blur-xl border border-border/50 rounded-xl;
+  }
+  .light .glass-card {
+    @apply bg-card/80 shadow-sm;
+  }
+  .glass-card-hover {
+    @apply bg-card/60 backdrop-blur-xl border border-border/50 rounded-xl transition-all duration-300;
+  }
+  .light .glass-card-hover {
+    @apply bg-card/80 shadow-sm;
+  }
+  .glass-card-hover:hover {
+    @apply border-primary/30;
+    box-shadow: 0 0 30px hsl(174 72% 50% / 0.08);
+  }
+  .light .glass-card-hover:hover {
+    box-shadow: 0 4px 20px hsl(174 72% 38% / 0.12);
+  }
+  .text-gradient-cyan {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/60;
+  }
+  .glow-sm {
+    box-shadow: 0 0 20px hsl(174 72% 50% / 0.15);
+  }
+  .light .glow-sm {
+    box-shadow: 0 2px 12px hsl(174 72% 38% / 0.1);
+  }
+  .glow-lg {
+    box-shadow: 0 0 60px hsl(174 72% 50% / 0.1);
+  }
+  .light .glow-lg {
+    box-shadow: 0 4px 30px hsl(174 72% 38% / 0.08);
+  }
+}
