@@ -218,9 +218,18 @@ app.put("/api/about", auth, async (req, res) => {
 // ─── Health ────────────────────────────────────────────────────────────────
 app.get("/api/health", (req, res) => res.json({ status: "ok" }));
 
-// ─── Start ────────────────────────────────────────────────────────────────
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, async () => {
-    await seedAdmin();
-    console.log(`🚀 Server running on http://localhost:${PORT}`);
-});
+// Export the app for Vercel
+module.exports = app;
+
+if (process.env.NODE_ENV !== "production") {
+    const PORT = process.env.PORT || 5000;
+    app.listen(PORT, async () => {
+        await seedAdmin();
+        console.log(`🚀 Server running on http://localhost:${PORT}`);
+    });
+} else {
+    // In serverless environments, we still want to ensure admin exists
+    mongoose.connection.once('open', async () => {
+        await seedAdmin();
+    });
+}
