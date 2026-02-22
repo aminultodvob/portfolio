@@ -6,8 +6,17 @@ const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const app = express();
-app.use(cors({ origin: "http://localhost:8080", credentials: true }));
+// Allow CORS for local dev and the production Vercel domain
+app.use(cors());
 app.use(express.json());
+
+// Startup check for Env Vars
+if (!process.env.MONGODB_URI) {
+    console.error("CRITICAL: MONGODB_URI is not defined in environment variables!");
+}
+if (!process.env.JWT_SECRET) {
+    console.error("CRITICAL: JWT_SECRET is not defined in environment variables!");
+}
 
 // ─── MongoDB Connection ────────────────────────────────────────────────────
 mongoose
