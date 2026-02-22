@@ -5,9 +5,10 @@ import { useTheme } from "@/components/ThemeProvider";
 
 const navLinks = [
   { href: "#about", label: "About" },
-  { href: "#research", label: "Research" },
+  { href: "#education", label: "Education" },
   { href: "#projects", label: "Projects" },
   { href: "#experience", label: "Experience" },
+  { href: "#research", label: "Research" },
   { href: "#awards", label: "Awards" },
   { href: "#leadership", label: "Leadership" },
   { href: "#contact", label: "Contact" },
