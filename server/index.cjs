@@ -19,10 +19,18 @@ if (!process.env.JWT_SECRET) {
 }
 
 // ─── MongoDB Connection ────────────────────────────────────────────────────
-mongoose
-    .connect(process.env.MONGODB_URI)
-    .then(() => console.log("✅ MongoDB connected"))
-    .catch((err) => console.error("❌ MongoDB error:", err));
+let isConnected = false;
+async function connectDB() {
+    if (isConnected && mongoose.connection.readyState === 1) return;
+    try {
+        const db = await mongoose.connect(process.env.MONGODB_URI);
+        isConnected = db.connections[0].readyState === 1;
+        console.log("✅ MongoDB connected");
+    } catch (err) {
+        console.error("❌ MongoDB error:", err);
+        throw err;
+    }
+}
 
 // ─── Schemas ───────────────────────────────────────────────────────────────
 const AdminSchema = new mongoose.Schema({
@@ -120,6 +128,7 @@ const auth = (req, res, next) => {
 
 // ─── Seed Admin ────────────────────────────────────────────────────────────
 async function seedAdmin() {
+    await connectDB(); // Ensure DB is connected before seeding
     const existing = await Admin.findOne({ email: process.env.ADMIN_EMAIL });
     if (!existing) {
         const hashed = await bcrypt.hash(process.env.ADMIN_PASSWORD, 10);
@@ -130,12 +139,9 @@ async function seedAdmin() {
 
 // ─── Auth Routes ───────────────────────────────────────────────────────────
 app.post("/api/auth/login", async (req, res) => {
-    // Ensure DB is connected before querying
-    if (mongoose.connection.readyState !== 1) {
-        return res.status(500).json({ message: "Database not connected yet. Please try again in a few seconds." });
-    }
-    const { email, password } = req.body;
     try {
+        await connectDB();
+        const { email, password } = req.body;
         const admin = await Admin.findOne({ email });
         if (!admin) return res.status(400).json({ message: "Invalid credentials" });
         const match = await bcrypt.compare(password, admin.password);
@@ -143,7 +149,7 @@ app.post("/api/auth/login", async (req, res) => {
         const token = jwt.sign({ id: admin._id, email: admin.email }, process.env.JWT_SECRET, { expiresIn: "24h" });
         res.json({ token, email: admin.email });
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        res.status(500).json({ message: "Auth error: " + err.message });
     }
 });
 
@@ -156,6 +162,7 @@ function crudRoutes(router, Model, path) {
     // Public GET all
     router.get(`/api/${path}`, async (req, res) => {
         try {
+            await connectDB();
             const items = await Model.find().sort({ createdAt: -1 });
             res.json(items);
         } catch (e) {
@@ -217,6 +224,7 @@ crudRoutes(app, Research, "research");
 // About – single document
 app.get("/api/about", async (req, res) => {
     try {
+        await connectDB();
         const about = await About.findOne();
         res.json(about || {});
     } catch (e) {
