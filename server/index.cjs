@@ -130,13 +130,21 @@ async function seedAdmin() {
 
 // ─── Auth Routes ───────────────────────────────────────────────────────────
 app.post("/api/auth/login", async (req, res) => {
+    // Ensure DB is connected before querying
+    if (mongoose.connection.readyState !== 1) {
+        return res.status(500).json({ message: "Database not connected yet. Please try again in a few seconds." });
+    }
     const { email, password } = req.body;
-    const admin = await Admin.findOne({ email });
-    if (!admin) return res.status(400).json({ message: "Invalid credentials" });
-    const match = await bcrypt.compare(password, admin.password);
-    if (!match) return res.status(400).json({ message: "Invalid credentials" });
-    const token = jwt.sign({ id: admin._id, email: admin.email }, process.env.JWT_SECRET, { expiresIn: "24h" });
-    res.json({ token, email: admin.email });
+    try {
+        const admin = await Admin.findOne({ email });
+        if (!admin) return res.status(400).json({ message: "Invalid credentials" });
+        const match = await bcrypt.compare(password, admin.password);
+        if (!match) return res.status(400).json({ message: "Invalid credentials" });
+        const token = jwt.sign({ id: admin._id, email: admin.email }, process.env.JWT_SECRET, { expiresIn: "24h" });
+        res.json({ token, email: admin.email });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
 });
 
 app.get("/api/auth/verify", auth, (req, res) => {
