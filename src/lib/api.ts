@@ -25,11 +25,25 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
 }
 
 export type CommunitySection = "humanitarian" | "startup" | "university";
+export type AwardSection = "innovation" | "engineering" | "leadership";
 
 export interface CommunityItem {
     _id?: string;
     section: CommunitySection;
     title: string;
+    description?: string;
+    imageUrl?: string;
+    tag?: string;
+    link?: string;
+    order?: number;
+}
+
+export interface AwardItem {
+    _id?: string;
+    section: AwardSection;
+    title: string;
+    organization?: string;
+    year?: string;
     description?: string;
     imageUrl?: string;
     tag?: string;

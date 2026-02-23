@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { Droplets, ArrowRight, Menu, X, Sun, Moon, ChevronDown, Users, HeartHandshake } from "lucide-react";
+import { Droplets, ArrowRight, Menu, X, Sun, Moon, ChevronDown, Users, HeartHandshake, Trophy } from "lucide-react";
 import { useState, useRef, useEffect } from "react";
 import { useTheme } from "@/components/ThemeProvider";
 import { Link } from "react-router-dom";
@@ -10,7 +10,7 @@ const navLinks = [
   { href: "/#projects", label: "Projects" },
   { href: "/#experience", label: "Experience" },
   { href: "/#research", label: "Research" },
-  { href: "/#awards", label: "Awards" },
+  { href: "/awards", label: "Awards" },
   { href: "/#contact", label: "Contact" },
 ];
 
@@ -26,6 +26,12 @@ const leadershipLinks = [
     icon: HeartHandshake,
     label: "Community Contribution",
     description: "Humanitarian, Startup & University",
+  },
+  {
+    href: "/awards",
+    icon: Trophy,
+    label: "Awards & Recognitions",
+    description: "Innovation, Engineering & Leadership",
   },
 ];
 

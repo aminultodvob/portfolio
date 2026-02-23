@@ -9,7 +9,18 @@ dotenv.config({ path: path.join(__dirname, ".env") });
 const ProjectSchema = new mongoose.Schema({ title: String, description: String, tags: [String], link: String, github: String, featured: { type: Boolean, default: false } });
 const ExperienceSchema = new mongoose.Schema({ role: String, company: String, period: String, description: String, points: [String], skills: [String], current: { type: Boolean, default: false } });
 const SkillSchema = new mongoose.Schema({ name: String, category: String, level: Number, icon: String });
-const AwardSchema = new mongoose.Schema({ title: String, organization: String, year: String, description: String });
+const AwardSchema = new mongoose.Schema({
+    section: { type: String, enum: ["innovation", "engineering", "leadership"] },
+    title: { type: String, required: true },
+    organization: String,
+    year: String,
+    description: String,
+    imageUrl: String,
+    tag: String,
+    link: String,
+    order: { type: Number, default: 0 },
+    createdAt: { type: Date, default: Date.now },
+});
 const ResearchSchema = new mongoose.Schema({ title: String, description: String, status: String, tags: [String] });
 const AboutSchema = new mongoose.Schema({ name: String, title: String, bio: String, location: String, email: String, linkedin: String, github: String, scholar: String, phone: String, education: String, languages: String });
 
@@ -144,14 +155,70 @@ async function seed() {
 
     // 5. Awards
     await Award.create([
-        { title: "Best Pitch Award – Accelerating Bangladesh (Cohort-4)" },
-        { title: "2nd Runner UP – Intra CUET Concrete Solutions Competition 2022" },
-        { title: "iDEA Project Innovation Grant 2023 – ICT Division" },
-        { title: "Tech Transformer Award – Tally MSME Honours' for Bangladesh 2023" },
-        { title: "Best Speaker – Prothom Alo Tarunno Utshob 2017" },
-        { title: "Champion – Prothom Alo Tarunno Utshob 2014" },
-        { title: "Extempore Speech Award – Marks All Rounder 2014" },
-        { title: "Award of Success 2014 – Drishty Chittagong School of Debate" }
+        {
+            section: "innovation",
+            title: "Best Pitch Award – Accelerating Bangladesh (Cohort-4)",
+            organization: "Startup Bangladesh Limited",
+            year: "2023",
+            tag: "Winner",
+            order: 1
+        },
+        {
+            section: "engineering",
+            title: "2nd Runner UP – Intra CUET Concrete Solutions Competition 2022",
+            organization: "CUET Civil Engineering Dept.",
+            year: "2022",
+            tag: "2nd Runner Up",
+            order: 2
+        },
+        {
+            section: "innovation",
+            title: "iDEA Project Innovation Grant 2023 – ICT Division",
+            organization: "ICT Division, Bangladesh",
+            year: "2023",
+            tag: "Grantee",
+            order: 3
+        },
+        {
+            section: "innovation",
+            title: "Tech Transformer Award – Tally MSME Honours' for Bangladesh 2023",
+            organization: "Tally Solutions",
+            year: "2023",
+            tag: "Honoree",
+            order: 4
+        },
+        {
+            section: "leadership",
+            title: "Best Speaker – Prothom Alo Tarunno Utshob 2017",
+            organization: "Prothom Alo",
+            year: "2017",
+            tag: "Best Speaker",
+            order: 5
+        },
+        {
+            section: "leadership",
+            title: "Champion – Prothom Alo Tarunno Utshob 2014",
+            organization: "Prothom Alo",
+            year: "2014",
+            tag: "Champion",
+            order: 6
+        },
+        {
+            section: "leadership",
+            title: "Extempore Speech Award – Marks All Rounder 2014",
+            organization: "Marks All Rounder",
+            year: "2014",
+            tag: "Winner",
+            order: 7
+        },
+        {
+            section: "leadership",
+            title: "Award of Success 2014 – Drishty Chittagong School of Debate",
+            organization: "Drishty Chittagong",
+            year: "2014",
+            tag: "Awardee",
+            order: 8
+        }
     ]);
 
     // 6. Research

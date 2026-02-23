@@ -68,10 +68,16 @@ const SkillSchema = new mongoose.Schema({
 });
 
 const AwardSchema = new mongoose.Schema({
-    title: String,
+    section: { type: String, enum: ["innovation", "engineering", "leadership"], default: "innovation" },
+    title: { type: String, required: true },
     organization: String,
     year: String,
     description: String,
+    imageUrl: String,
+    tag: String,
+    link: String,
+    order: { type: Number, default: 0 },
+    createdAt: { type: Date, default: Date.now },
 });
 
 const PublicationSchema = new mongoose.Schema({

@@ -642,25 +642,84 @@ export default function AdminDashboard() {
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
                         <CrudSection
                             title="Awards" icon={Award} items={awards} loading={dataLoading}
-                            onAdd={() => openAdd("awards")}
+                            onAdd={() => openAdd("awards", { section: "innovation", order: "0" })}
                             onEdit={(item) => openEdit("awards", item)}
                             onDelete={(id) => setDeleteConfirm({ type: "awards", id })}
                             emptyMsg="No awards yet."
                             renderItem={(item) => (
-                                <div>
-                                    <div className="font-semibold text-foreground text-sm">{item.title as string}</div>
-                                    <div className="text-xs text-muted-foreground">{item.year as string}</div>
+                                <div className="flex items-start gap-3">
+                                    {item.imageUrl ? (
+                                        <img
+                                            src={item.imageUrl as string}
+                                            alt={item.title as string}
+                                            className="w-14 h-14 rounded-lg object-cover shrink-0 border border-border"
+                                        />
+                                    ) : (
+                                        <div className="w-14 h-14 rounded-lg bg-secondary flex items-center justify-center shrink-0 border border-border">
+                                            <Award className="w-5 h-5 text-muted-foreground/40" />
+                                        </div>
+                                    )}
+                                    <div className="min-w-0">
+                                        <div className="flex items-center gap-2 mb-0.5">
+                                            <span className="font-semibold text-foreground text-sm">{item.title as string}</span>
+                                            <span className="px-1.5 py-0.5 text-[10px] bg-primary/10 text-primary rounded font-mono uppercase">
+                                                {item.section as string}
+                                            </span>
+                                        </div>
+                                        <div className="text-xs text-muted-foreground">
+                                            {[item.organization, item.year].filter(Boolean).join(" · ")}
+                                        </div>
+                                        {item.tag && <span className="text-[10px] text-muted-foreground border border-border/60 rounded-full px-2 py-0.5 mt-1 inline-block">{item.tag as string}</span>}
+                                    </div>
                                 </div>
                             )}
                             renderForm={
                                 <Modal open={modal?.type === "awards"} onClose={() => setModal(null)} title={modal?.item ? "Edit Award" : "Add Award"}>
-                                    <form onSubmit={(e) => handleSave(e, "awards", () => formData)} className="space-y-4">
+                                    <form onSubmit={(e) => handleSave(e, "awards", () => ({
+                                        ...formData,
+                                        order: Number(formData.order || 0),
+                                    }))} className="space-y-4">
+                                        <div className="space-y-1.5">
+                                            <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Section</label>
+                                            <select
+                                                value={formData.section || "innovation"}
+                                                onChange={(e) => handleFieldChange("section", e.target.value)}
+                                                className="w-full bg-secondary/50 border border-border rounded-lg px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/50 transition-all"
+                                            >
+                                                <option value="innovation">💡 Innovation & Startup</option>
+                                                <option value="engineering">🏗️ Engineering & Tech</option>
+                                                <option value="leadership">🗣️ Leadership & Debate</option>
+                                            </select>
+                                        </div>
+
+                                        <FormField label="Title" name="title" value={formData.title || ""} onChange={handleFieldChange} required placeholder="Best Thesis" />
+
                                         <div className="grid md:grid-cols-2 gap-4">
-                                            <FormField label="Title" name="title" value={formData.title || ""} onChange={handleFieldChange} required placeholder="Best Thesis" />
                                             <FormField label="Organization" name="organization" value={formData.organization || ""} onChange={handleFieldChange} placeholder="CUET" />
                                             <FormField label="Year" name="year" value={formData.year || ""} onChange={handleFieldChange} placeholder="2023" />
                                         </div>
                                         <FormField label="Description" name="description" value={formData.description || ""} onChange={handleFieldChange} type="textarea" placeholder="Brief info..." />
+
+                                        <div className="space-y-2">
+                                            <FormField label="Image URL" name="imageUrl" value={formData.imageUrl || ""} onChange={handleFieldChange} placeholder="https://example.com/award.jpg" />
+                                            {formData.imageUrl && (
+                                                <div className="relative rounded-lg overflow-hidden border border-border h-40 bg-secondary/40">
+                                                    <img
+                                                        src={formData.imageUrl}
+                                                        alt="Preview"
+                                                        className="w-full h-full object-cover"
+                                                        onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                                                    />
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div className="grid md:grid-cols-2 gap-4">
+                                            <FormField label="Tag" name="tag" value={formData.tag || ""} onChange={handleFieldChange} placeholder="First Place" />
+                                            <FormField label="Display Order" name="order" value={formData.order || "0"} onChange={handleFieldChange} type="number" />
+                                        </div>
+                                        <FormField label="Reference Link" name="link" value={formData.link || ""} onChange={handleFieldChange} placeholder="https://..." />
+
                                         <div className="flex justify-end gap-3 pt-2">
                                             <button type="button" onClick={() => setModal(null)} className="px-4 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:bg-secondary/60 transition-all">Cancel</button>
                                             <button type="submit" disabled={saving} className="px-4 py-2 text-sm rounded-lg bg-primary text-primary-foreground font-semibold flex items-center gap-2 disabled:opacity-60">

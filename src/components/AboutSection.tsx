@@ -28,18 +28,14 @@ const AboutSection = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  // Fallback values when DB is empty
-  const bio1 = about.bio ||
-    "Water Resources Engineering graduate with knowledge in hydraulics, hydrology, structures, geotechnical, and environmental engineering. Skilled in leadership, teamwork, and problem solving with strong computer-based and technical expertise.";
-  const bio2 = about.title
-    ? `${about.title}. Civil Engineer at Lika Limited and Co-founder & CEO of Todvob Ltd.`
-    : "Civil Engineer at Lika Limited and Co-founder & CEO of Todvob Ltd, bridging engineering expertise with AI innovation.";
+  // Fallback values when DB is empty - minimal to avoid repetition
+  const bio = about.bio || "About me information will go here. Please update it from the admin dashboard.";
 
   const info = [
     {
       icon: Building2,
-      label: "Engineer",
-      value: "Civil Engineer at Lika Limited",
+      label: "Role",
+      value: about.title || "Professional Title",
     },
     {
       icon: GraduationCap,
@@ -82,8 +78,7 @@ const AboutSection = () => {
               viewport={{ once: true }}
               className="glass-card p-8 space-y-4"
             >
-              <p className="text-muted-foreground leading-relaxed">{bio1}</p>
-              <p className="text-muted-foreground leading-relaxed">{bio2}</p>
+              <p className="text-muted-foreground leading-relaxed whitespace-pre-line">{bio}</p>
 
               {/* Contact links from about */}
               {(about.email || about.phone || about.linkedin) && (

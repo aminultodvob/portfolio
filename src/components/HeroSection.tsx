@@ -20,8 +20,8 @@ const HeroSection = () => {
   const nameParts = fullName.split(" ");
   const firstName = nameParts[0];
   const lastName = nameParts.slice(1).join(" ") || "";
-  const title = about.title || "Bridging Engineering & Innovation";
-  const bio = about.bio || "Solving complex environmental challenges through high-performance software engineering and hydraulic modeling.";
+  const title = about.title || "Professional Engineer & Innovator";
+  const bio = about.bio || "Welcome to my portfolio. Please update this bio from the admin dashboard.";
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
       {/* Background grid pattern */}

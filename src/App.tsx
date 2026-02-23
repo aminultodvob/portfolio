@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
 import AdminDashboard from "./pages/AdminDashboard";
 import CommunityContribution from "./pages/CommunityContribution";
+import AwardsPage from "./pages/AwardsPage";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
               <Route path="/admin" element={<AdminLogin />} />
               <Route path="/admin/dashboard" element={<AdminDashboard />} />
               <Route path="/community-contribution" element={<CommunityContribution />} />
+              <Route path="/awards" element={<AwardsPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </AuthProvider>
