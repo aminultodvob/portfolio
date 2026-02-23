@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Building2, Code2, Mountain, MapPin } from "lucide-react";
+import { ArrowRight, Building2, Code2, Mountain, MapPin, Layout } from "lucide-react";
 import { api } from "@/lib/api";
 
 interface AboutData {
@@ -67,6 +67,15 @@ const HeroSection = () => {
                   <div>
                     <h4 className="text-sm font-semibold text-foreground">Topographic Mapping</h4>
                     <p className="text-xs text-muted-foreground mt-1">3D terrain visualization for disaster preparedness.</p>
+                  </div>
+                </div>
+              </div>
+              <div className="glass-card-hover p-4">
+                <div className="flex items-start gap-3">
+                  <Layout className="w-5 h-5 text-primary mt-0.5" />
+                  <div>
+                    <h4 className="text-sm font-semibold text-foreground">CAD & Structural Design</h4>
+                    <p className="text-xs text-muted-foreground mt-1">Professional drafting and analysis using AutoCAD & ETABS.</p>
                   </div>
                 </div>
               </div>

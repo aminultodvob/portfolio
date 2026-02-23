@@ -36,7 +36,7 @@ async function seed() {
     await About.create({
         name: "Aminul Islam",
         title: "Bridging Engineering & Innovation",
-        bio: "Water Resources Engineering graduate with knowledge in hydraulics, hydrology, structures, geotechnical, and environmental engineering. Skilled in leadership, teamwork, and problem solving with strong computer-based and technical expertise. Co-founder & CEO of Todvob Ltd, an AI-driven SaaS startup.",
+        bio: "Water Resources Engineering graduate with knowledge in hydraulics, hydrology, structures, geotechnical, and environmental engineering. Skilled in leadership, teamwork, and problem solving with strong computer-based and technical expertise. Currently working as a Civil Engineer at Lika Limited and Co-founder & CEO of Todvob Ltd.",
         location: "Bandar Chattogram, Bangladesh",
         email: "aminul@todvob.com",
         phone: "01626-180555",
@@ -72,6 +72,19 @@ async function seed() {
 
     // 3. Experience
     await Experience.create([
+        {
+            role: "Civil Engineer",
+            company: "Lika Limited",
+            period: "01/2026 – Present",
+            description: "Currently working as a Civil Engineer, focusing on engineering design and project execution.",
+            points: [
+                "Specializing in civil engineering infrastructure and structural projects",
+                "Ensuring quality control and adherence to engineering standards",
+                "Coordinating with multidisciplinary teams for project success"
+            ],
+            skills: ["Civil Engineering", "AutoCAD", "Project Management"],
+            current: true
+        },
         {
             role: "Co-founder & CEO",
             company: "Todvob Ltd",

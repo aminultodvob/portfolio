@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { MapPin, GraduationCap, Globe, Mail, Phone, Linkedin, Loader2 } from "lucide-react";
+import { MapPin, GraduationCap, Globe, Mail, Phone, Linkedin, Loader2, Building2 } from "lucide-react";
 import { api } from "@/lib/api";
 
 interface AboutData {
@@ -32,10 +32,15 @@ const AboutSection = () => {
   const bio1 = about.bio ||
     "Water Resources Engineering graduate with knowledge in hydraulics, hydrology, structures, geotechnical, and environmental engineering. Skilled in leadership, teamwork, and problem solving with strong computer-based and technical expertise.";
   const bio2 = about.title
-    ? `${about.title}. Co-founder & CEO of Todvob Ltd, an AI-driven SaaS startup.`
-    : "Motivated to apply engineering knowledge and technology for sustainable solutions and development. Co-founder & CEO of Todvob Ltd, an AI-driven SaaS startup.";
+    ? `${about.title}. Civil Engineer at Lika Limited and Co-founder & CEO of Todvob Ltd.`
+    : "Civil Engineer at Lika Limited and Co-founder & CEO of Todvob Ltd, bridging engineering expertise with AI innovation.";
 
   const info = [
+    {
+      icon: Building2,
+      label: "Engineer",
+      value: "Civil Engineer at Lika Limited",
+    },
     {
       icon: GraduationCap,
       label: "Education",

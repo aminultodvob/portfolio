@@ -16,6 +16,20 @@ interface Experience {
 
 const FALLBACK: Experience[] = [
   {
+    _id: "f0",
+    role: "Civil Engineer",
+    company: "Lika Limited",
+    period: "01/2026 – Present",
+    description: "Currently working as a Civil Engineer, focusing on engineering design and project execution.",
+    points: [
+      "Specializing in civil engineering infrastructure and structural projects",
+      "Ensuring quality control and adherence to engineering standards",
+      "Coordinating with multidisciplinary teams for project success",
+    ],
+    skills: ["Civil Engineering", "AutoCAD", "Project Management"],
+    current: true,
+  },
+  {
     _id: "f1",
     role: "Co-founder & CEO",
     company: "Todvob Ltd",
