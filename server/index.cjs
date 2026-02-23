@@ -104,6 +104,16 @@ const AboutSchema = new mongoose.Schema({
     avatar: String,
 });
 
+const CommunityItemSchema = new mongoose.Schema({
+    section: { type: String, enum: ["humanitarian", "startup", "university"], required: true },
+    title: { type: String, required: true },
+    description: String,
+    imageUrl: String,
+    tag: String,
+    order: { type: Number, default: 0 },
+    createdAt: { type: Date, default: Date.now },
+});
+
 // ─── Models ────────────────────────────────────────────────────────────────
 const Admin = mongoose.model("Admin", AdminSchema);
 const Project = mongoose.model("Project", ProjectSchema);
@@ -113,6 +123,7 @@ const Award = mongoose.model("Award", AwardSchema);
 const Publication = mongoose.model("Publication", PublicationSchema);
 const Research = mongoose.model("Research", ResearchSchema);
 const About = mongoose.model("About", AboutSchema);
+const CommunityItem = mongoose.model("CommunityItem", CommunityItemSchema);
 
 // ─── Auth Middleware ───────────────────────────────────────────────────────
 const auth = (req, res, next) => {
@@ -220,6 +231,7 @@ crudRoutes(app, Skill, "skills");
 crudRoutes(app, Award, "awards");
 crudRoutes(app, Publication, "publications");
 crudRoutes(app, Research, "research");
+crudRoutes(app, CommunityItem, "community");
 
 // About – single document
 app.get("/api/about", async (req, res) => {

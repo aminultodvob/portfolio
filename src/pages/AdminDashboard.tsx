@@ -1,12 +1,12 @@
 import { useState, useEffect, ReactNode, FormEvent } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { api } from "@/lib/api";
+import { api, CommunityItem } from "@/lib/api";
 import { motion, AnimatePresence } from "framer-motion";
 import {
     LayoutDashboard, Briefcase, Code2, Award, BookOpen, FlaskConical,
     User, LogOut, Plus, Pencil, Trash2, X, Save, Loader2, ChevronRight,
-    FolderOpen, Star, GraduationCap, CheckCircle, BarChart3
+    FolderOpen, Star, GraduationCap, CheckCircle, BarChart3, HeartHandshake, ImageOff
 } from "lucide-react";
 
 // ─── Types ─────────────────────────────────────────────────────────────────
@@ -176,6 +176,7 @@ export default function AdminDashboard() {
         { id: "awards", label: "Awards", icon: Award },
         { id: "publications", label: "Publications", icon: BookOpen },
         { id: "research", label: "Research", icon: FlaskConical },
+        { id: "community", label: "Community", icon: HeartHandshake },
     ];
 
     const [activeTab, setActiveTab] = useState("overview");
@@ -193,14 +194,16 @@ export default function AdminDashboard() {
     const [publications, setPublications] = useState<Item[]>([]);
     const [research, setResearch] = useState<Item[]>([]);
     const [about, setAbout] = useState<Item>({});
+    const [communityItems, setCommunityItems] = useState<CommunityItem[]>([]);
     const [dataLoading, setDataLoading] = useState(false);
 
     const fetchAll = async () => {
         setDataLoading(true);
         try {
-            const [p, e, s, a, pub, r, ab] = await Promise.all([
+            const [p, e, s, a, pub, r, ab, comm] = await Promise.all([
                 api.getProjects(), api.getExperiences(), api.getSkills(),
-                api.getAwards(), api.getPublications(), api.getResearch(), api.getAbout()
+                api.getAwards(), api.getPublications(), api.getResearch(), api.getAbout(),
+                api.getCommunity()
             ]);
             setProjects(p as Item[]);
             setExperiences(e as Item[]);
@@ -209,6 +212,7 @@ export default function AdminDashboard() {
             setPublications(pub as Item[]);
             setResearch(r as Item[]);
             setAbout(ab as Item);
+            setCommunityItems(comm);
         } catch (e) {
             console.error(e);
         } finally {
@@ -313,6 +317,14 @@ export default function AdminDashboard() {
                     const n = await api.createResearch(body);
                     setResearch((p) => [n as Item, ...p]);
                 }
+            } else if (type === "community") {
+                if (isEdit) {
+                    const u = await api.updateCommunityItem(isEdit as string, body);
+                    setCommunityItems((p) => p.map((x) => (x._id === isEdit ? u : x)));
+                } else {
+                    const n = await api.createCommunityItem(body);
+                    setCommunityItems((p) => [n, ...p]);
+                }
             }
             setModal(null);
         } catch (err) {
@@ -331,6 +343,7 @@ export default function AdminDashboard() {
             else if (type === "awards") { await api.deleteAward(id); setAwards((p) => p.filter((x) => x._id !== id)); }
             else if (type === "publications") { await api.deletePublication(id); setPublications((p) => p.filter((x) => x._id !== id)); }
             else if (type === "research") { await api.deleteResearch(id); setResearch((p) => p.filter((x) => x._id !== id)); }
+            else if (type === "community") { await api.deleteCommunityItem(id); setCommunityItems((p) => p.filter((x) => x._id !== id)); }
         } catch (err) {
             alert(err instanceof Error ? err.message : "Delete failed");
         }
@@ -367,8 +380,8 @@ export default function AdminDashboard() {
                             key={tab.id}
                             onClick={() => setActiveTab(tab.id)}
                             className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all ${activeTab === tab.id
-                                    ? "bg-primary/10 text-primary border border-primary/20"
-                                    : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
+                                ? "bg-primary/10 text-primary border border-primary/20"
+                                : "text-muted-foreground hover:bg-secondary/60 hover:text-foreground"
                                 }`}
                         >
                             <tab.icon className="w-4 h-4 shrink-0" />
@@ -410,6 +423,7 @@ export default function AdminDashboard() {
                             <StatCard label="Awards" value={awards.length} icon={Star} color="bg-primary/10" />
                             <StatCard label="Publications" value={publications.length} icon={GraduationCap} color="bg-primary/10" />
                             <StatCard label="Research" value={research.length} icon={FlaskConical} color="bg-primary/10" />
+                            <StatCard label="Community" value={communityItems.length} icon={HeartHandshake} color="bg-primary/10" />
                         </div>
 
                         <div className="glass-card p-6">
@@ -727,6 +741,104 @@ export default function AdminDashboard() {
                                             </div>
                                             <FormField label="Tags (comma separated)" name="tags" value={formData.tags || ""} onChange={handleFieldChange} placeholder="GIS, Hydrology" />
                                         </div>
+                                        <div className="flex justify-end gap-3 pt-2">
+                                            <button type="button" onClick={() => setModal(null)} className="px-4 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:bg-secondary/60 transition-all">Cancel</button>
+                                            <button type="submit" disabled={saving} className="px-4 py-2 text-sm rounded-lg bg-primary text-primary-foreground font-semibold flex items-center gap-2 disabled:opacity-60">
+                                                {saving ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <Save className="w-3.5 h-3.5" />} Save
+                                            </button>
+                                        </div>
+                                    </form>
+                                </Modal>
+                            }
+                        />
+                    </motion.div>
+                )}
+
+                {/* ── Community ── */}
+                {activeTab === "community" && (
+                    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+                        <CrudSection
+                            title="Community Contribution" icon={HeartHandshake}
+                            items={communityItems as unknown as Item[]} loading={dataLoading}
+                            onAdd={() => openAdd("community", { section: "humanitarian", order: "0" })}
+                            onEdit={(item) => openEdit("community", item)}
+                            onDelete={(id) => setDeleteConfirm({ type: "community", id })}
+                            emptyMsg="No community items yet. Add your first entry!"
+                            renderItem={(item) => (
+                                <div className="flex items-start gap-3">
+                                    {/* Thumbnail */}
+                                    {item.imageUrl ? (
+                                        <img
+                                            src={item.imageUrl as string}
+                                            alt={item.title as string}
+                                            className="w-14 h-14 rounded-lg object-cover shrink-0 border border-border"
+                                        />
+                                    ) : (
+                                        <div className="w-14 h-14 rounded-lg bg-secondary flex items-center justify-center shrink-0 border border-border">
+                                            <ImageOff className="w-5 h-5 text-muted-foreground/40" />
+                                        </div>
+                                    )}
+                                    <div className="min-w-0">
+                                        <div className="flex items-center gap-2 mb-0.5">
+                                            <span className="font-semibold text-foreground text-sm">{item.title as string}</span>
+                                            <span className="px-1.5 py-0.5 text-[10px] bg-primary/10 text-primary rounded font-mono">
+                                                {item.section as string}
+                                            </span>
+                                        </div>
+                                        {item.tag && <span className="text-[10px] text-muted-foreground border border-border/60 rounded-full px-2 py-0.5">{item.tag as string}</span>}
+                                        <p className="text-xs text-muted-foreground mt-1 line-clamp-1">{item.description as string}</p>
+                                    </div>
+                                </div>
+                            )}
+                            renderForm={
+                                <Modal open={modal?.type === "community"} onClose={() => setModal(null)} title={modal?.item ? "Edit Community Item" : "Add Community Item"}>
+                                    <form
+                                        onSubmit={(e) => handleSave(e, "community", () => ({
+                                            ...formData,
+                                            order: Number(formData.order || 0),
+                                        }))}
+                                        className="space-y-4"
+                                    >
+                                        {/* Section selector */}
+                                        <div className="space-y-1.5">
+                                            <label className="text-xs font-medium text-muted-foreground uppercase tracking-wide">Section</label>
+                                            <select
+                                                value={formData.section || "humanitarian"}
+                                                onChange={(e) => handleFieldChange("section", e.target.value)}
+                                                className="w-full bg-secondary/50 border border-border rounded-lg px-3 py-2.5 text-sm text-foreground focus:outline-none focus:border-primary/50 transition-all"
+                                            >
+                                                <option value="humanitarian">❤️ Humanitarian Work</option>
+                                                <option value="startup">🚀 Startup Ecosystem</option>
+                                                <option value="university">🎓 University &amp; Club</option>
+                                            </select>
+                                        </div>
+
+                                        <FormField label="Title" name="title" value={formData.title || ""} onChange={handleFieldChange} required placeholder="e.g. COVID-19 Oxygen Fund" />
+                                        <FormField label="Description" name="description" value={formData.description || ""} onChange={handleFieldChange} type="textarea" placeholder="Brief description of the initiative..." />
+
+                                        {/* Image URL with preview */}
+                                        <div className="space-y-2">
+                                            <FormField label="Image URL" name="imageUrl" value={formData.imageUrl || ""} onChange={handleFieldChange} placeholder="https://example.com/photo.jpg" />
+                                            {formData.imageUrl && (
+                                                <div className="relative rounded-lg overflow-hidden border border-border h-40 bg-secondary/40">
+                                                    <img
+                                                        src={formData.imageUrl}
+                                                        alt="Preview"
+                                                        className="w-full h-full object-cover"
+                                                        onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                                                    />
+                                                    <div className="absolute inset-0 flex items-center justify-center text-xs text-muted-foreground pointer-events-none">
+                                                        Preview
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+
+                                        <div className="grid md:grid-cols-2 gap-4">
+                                            <FormField label="Tag / Category" name="tag" value={formData.tag || ""} onChange={handleFieldChange} placeholder="e.g. Healthcare" />
+                                            <FormField label="Display Order" name="order" value={formData.order || "0"} onChange={handleFieldChange} type="number" placeholder="0" />
+                                        </div>
+
                                         <div className="flex justify-end gap-3 pt-2">
                                             <button type="button" onClick={() => setModal(null)} className="px-4 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:bg-secondary/60 transition-all">Cancel</button>
                                             <button type="submit" disabled={saving} className="px-4 py-2 text-sm rounded-lg bg-primary text-primary-foreground font-semibold flex items-center gap-2 disabled:opacity-60">

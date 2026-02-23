@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ExternalLink, Github, Rocket, Loader2 } from "lucide-react";
+import { ExternalLink, Github, Rocket, Loader2, Youtube } from "lucide-react";
 import { api } from "@/lib/api";
 
 interface Project {
@@ -11,6 +11,8 @@ interface Project {
   link?: string;
   github?: string;
   featured?: boolean;
+  appsumo?: string;
+  youtube?: string;
 }
 
 // Hardcoded fallback data
@@ -21,6 +23,8 @@ const FALLBACK: Project[] = [
     description: "AI-driven SaaS product with 300+ monthly active users and 64+ paying customers. Recipient of Microsoft for Startups grant. Best Pitch in Cohort-4 Accelerating Bangladesh.",
     tags: ["SaaS", "AI", "Startup"],
     featured: true,
+    appsumo: "https://appsumo.com/products/todvob/",
+    youtube: "https://www.youtube.com/watch?v=ckrx1IXOtmE",
   },
   {
     _id: "f2",
@@ -93,8 +97,8 @@ const ProjectsSection = () => {
                     </span>
                   ))}
                 </div>
-                {(project.link || project.github) && (
-                  <div className="flex items-center gap-3">
+                {(project.link || project.github || project.appsumo || project.youtube) && (
+                  <div className="flex items-center gap-3 flex-wrap">
                     {project.link && (
                       <a href={project.link} target="_blank" rel="noopener noreferrer"
                         className="flex items-center gap-1.5 text-xs text-primary hover:underline">
@@ -105,6 +109,34 @@ const ProjectsSection = () => {
                       <a href={project.github} target="_blank" rel="noopener noreferrer"
                         className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground">
                         <Github className="w-3.5 h-3.5" /> Code
+                      </a>
+                    )}
+                    {project.appsumo && (
+                      <a
+                        href={project.appsumo}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Available on AppSumo"
+                        className="flex items-center gap-1.5 text-xs font-semibold hover:opacity-80 transition-opacity"
+                        style={{ color: "#ff6b00" }}
+                      >
+                        {/* AppSumo wordmark logo */}
+                        <svg width="16" height="16" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                          <rect width="100" height="100" rx="18" fill="#ff6b00" />
+                          <text x="50" y="68" textAnchor="middle" fontSize="52" fontWeight="bold" fill="white" fontFamily="Arial,sans-serif">AS</text>
+                        </svg>
+                        AppSumo
+                      </a>
+                    )}
+                    {project.youtube && (
+                      <a
+                        href={project.youtube}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        title="Watch on YouTube"
+                        className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-red-500 transition-colors"
+                      >
+                        <Youtube className="w-3.5 h-3.5 text-red-500" /> Demo
                       </a>
                     )}
                   </div>

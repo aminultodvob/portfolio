@@ -24,6 +24,18 @@ async function request<T>(method: string, path: string, body?: unknown): Promise
     return res.json();
 }
 
+export type CommunitySection = "humanitarian" | "startup" | "university";
+
+export interface CommunityItem {
+    _id?: string;
+    section: CommunitySection;
+    title: string;
+    description?: string;
+    imageUrl?: string;
+    tag?: string;
+    order?: number;
+}
+
 export const api = {
     // Auth
     login: (email: string, password: string) =>
@@ -69,4 +81,10 @@ export const api = {
     createResearch: (data: unknown) => request<unknown>("POST", "/research", data),
     updateResearch: (id: string, data: unknown) => request<unknown>("PUT", `/research/${id}`, data),
     deleteResearch: (id: string) => request<unknown>("DELETE", `/research/${id}`),
+
+    // Community Contribution
+    getCommunity: () => request<CommunityItem[]>("GET", "/community"),
+    createCommunityItem: (data: unknown) => request<CommunityItem>("POST", "/community", data),
+    updateCommunityItem: (id: string, data: unknown) => request<CommunityItem>("PUT", `/community/${id}`, data),
+    deleteCommunityItem: (id: string) => request<unknown>("DELETE", `/community/${id}`),
 };
