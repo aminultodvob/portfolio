@@ -27,12 +27,6 @@ const leadershipLinks = [
     label: "Community Contribution",
     description: "Humanitarian, Startup & University",
   },
-  {
-    href: "/awards",
-    icon: Trophy,
-    label: "Awards & Recognitions",
-    description: "Innovation, Engineering & Leadership",
-  },
 ];
 
 const Navbar = () => {
