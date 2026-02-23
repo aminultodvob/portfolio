@@ -28,24 +28,6 @@ const SECTIONS: {
     badgeBg: string;
 }[] = [
         {
-            key: "humanitarian",
-            icon: Heart,
-            tag: "// HUMANITARIAN WORK",
-            heading: "Humanitarian Contributions",
-            subheading:
-                "Crisis response, community care, and grassroots volunteerism — making a direct impact on lives when it matters most.",
-            highlights: [
-                { emoji: "💰", text: "700K BDT COVID oxygen fund" },
-                { emoji: "🍱", text: "Free food for 1000+ people" },
-                { emoji: "🌊", text: "Flood relief: Feni, Cumilla, Fatikchari" },
-                { emoji: "🧥", text: "Winter Help Project 2021 & 2022" },
-            ],
-            iconBg: "bg-rose-500/15",
-            iconColor: "text-rose-400",
-            accentBorder: "border-rose-500/20",
-            badgeBg: "bg-rose-500/10 text-rose-400 border-rose-500/30",
-        },
-        {
             key: "startup",
             icon: Rocket,
             tag: "// STARTUP ECOSYSTEM",
@@ -62,6 +44,24 @@ const SECTIONS: {
             iconColor: "text-cyan-400",
             accentBorder: "border-cyan-500/20",
             badgeBg: "bg-cyan-500/10 text-cyan-400 border-cyan-500/30",
+        },
+        {
+            key: "humanitarian",
+            icon: Heart,
+            tag: "// HUMANITARIAN WORK",
+            heading: "Humanitarian Contributions",
+            subheading:
+                "Crisis response, community care, and grassroots volunteerism — making a direct impact on lives when it matters most.",
+            highlights: [
+                { emoji: "💰", text: "700K BDT COVID oxygen fund" },
+                { emoji: "🍱", text: "Free food for 1000+ people" },
+                { emoji: "🌊", text: "Flood relief: Feni, Cumilla, Fatikchari" },
+                { emoji: "🧥", text: "Winter Help Project 2021 & 2022" },
+            ],
+            iconBg: "bg-rose-500/15",
+            iconColor: "text-rose-400",
+            accentBorder: "border-rose-500/20",
+            badgeBg: "bg-rose-500/10 text-rose-400 border-rose-500/30",
         },
         {
             key: "university",

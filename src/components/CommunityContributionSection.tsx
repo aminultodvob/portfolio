@@ -16,17 +16,6 @@ const PILLARS: {
     fallbackDesc: string;
 }[] = [
         {
-            key: "humanitarian",
-            icon: Heart,
-            label: "Humanitarian Work",
-            tag: "Humanitarian",
-            color: "from-rose-500/20 to-red-600/5",
-            border: "border-rose-500/20",
-            iconColor: "text-rose-400",
-            emoji: "❤️",
-            fallbackDesc: "Community relief, COVID fund, flood response.",
-        },
-        {
             key: "startup",
             icon: Rocket,
             label: "Startup Ecosystem",
@@ -36,6 +25,17 @@ const PILLARS: {
             iconColor: "text-cyan-400",
             emoji: "🚀",
             fallbackDesc: "SAB, Todvob Appsumo Select, policy advocacy.",
+        },
+        {
+            key: "humanitarian",
+            icon: Heart,
+            label: "Humanitarian Work",
+            tag: "Humanitarian",
+            color: "from-rose-500/20 to-red-600/5",
+            border: "border-rose-500/20",
+            iconColor: "text-rose-400",
+            emoji: "❤️",
+            fallbackDesc: "Community relief, COVID fund, flood response.",
         },
         {
             key: "university",
