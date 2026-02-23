@@ -33,6 +33,7 @@ export interface CommunityItem {
     description?: string;
     imageUrl?: string;
     tag?: string;
+    link?: string;
     order?: number;
 }
 

@@ -7,6 +7,7 @@ import {
     ArrowLeft,
     ImageOff,
     Loader2,
+    ExternalLink,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
@@ -136,6 +137,17 @@ function ImageCard({
                         {item.description}
                     </p>
                 )}
+                {item.link && (
+                    <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-1 mt-2 text-[10px] text-primary hover:text-primary/80 transition-colors font-mono"
+                    >
+                        <ExternalLink className="w-3 h-3" />
+                        View Reference
+                    </a>
+                )}
             </div>
         </motion.div>
     );
@@ -239,10 +251,10 @@ function SectionBlock({
                             <EmptyGrid />
                         ) : (
                             <div className={`grid gap-4 ${sorted.length === 1
-                                    ? "grid-cols-1 max-w-sm"
-                                    : sorted.length === 2
-                                        ? "grid-cols-2"
-                                        : "grid-cols-2 md:grid-cols-3"
+                                ? "grid-cols-1 max-w-sm"
+                                : sorted.length === 2
+                                    ? "grid-cols-2"
+                                    : "grid-cols-2 md:grid-cols-3"
                                 }`}>
                                 {sorted.map((item, i) => (
                                     <ImageCard key={item._id} item={item} index={i} />

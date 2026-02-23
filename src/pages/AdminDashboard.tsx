@@ -839,6 +839,8 @@ export default function AdminDashboard() {
                                             <FormField label="Display Order" name="order" value={formData.order || "0"} onChange={handleFieldChange} type="number" placeholder="0" />
                                         </div>
 
+                                        <FormField label="Link / Reference URL" name="link" value={formData.link || ""} onChange={handleFieldChange} placeholder="https://example.com/reference" />
+
                                         <div className="flex justify-end gap-3 pt-2">
                                             <button type="button" onClick={() => setModal(null)} className="px-4 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:bg-secondary/60 transition-all">Cancel</button>
                                             <button type="submit" disabled={saving} className="px-4 py-2 text-sm rounded-lg bg-primary text-primary-foreground font-semibold flex items-center gap-2 disabled:opacity-60">

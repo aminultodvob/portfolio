@@ -110,6 +110,7 @@ const CommunityItemSchema = new mongoose.Schema({
     description: String,
     imageUrl: String,
     tag: String,
+    link: String,
     order: { type: Number, default: 0 },
     createdAt: { type: Date, default: Date.now },
 });
