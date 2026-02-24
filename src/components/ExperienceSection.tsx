@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Loader2 } from "lucide-react";
+import { Loader2, ExternalLink, Youtube, Globe } from "lucide-react";
 import { api } from "@/lib/api";
 
 interface Experience {
@@ -9,8 +9,11 @@ interface Experience {
   company: string;
   period: string;
   description: string;
-  points?: string[]; // Supporting points array
+  points?: string[];
   skills: string[];
+  link?: string;
+  appsumoLink?: string;
+  youtubeLink?: string;
   current?: boolean;
 }
 
@@ -34,7 +37,10 @@ const FALLBACK: Experience[] = [
     role: "Co-founder & CEO",
     company: "Todvob Ltd",
     period: "10/2023 – Present",
-    description: "",
+    description: "Building and scaling AI-driven SaaS products.",
+    link: "https://todvob.com",
+    appsumoLink: "https://appsumo.com/products/todvob/",
+    youtubeLink: "https://www.youtube.com/watch?v=ckrx1IXOtmE",
     points: [
       "Building and scaling AI-driven SaaS products",
       "300+ monthly active users, 64+ paying customers",
@@ -121,7 +127,7 @@ const ExperienceSection = () => {
                 )}
 
                 {(exp.skills || []).length > 0 && (
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 mb-4">
                     {exp.skills.map((skill) => (
                       <span key={skill} className="text-[10px] px-2 py-1 border border-border rounded-md text-muted-foreground font-mono">
                         {skill}
@@ -129,6 +135,39 @@ const ExperienceSection = () => {
                     ))}
                   </div>
                 )}
+
+                <div className="flex flex-wrap gap-3">
+                  {exp.link && (
+                    <a
+                      href={exp.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[11px] font-medium text-primary hover:underline"
+                    >
+                      <Globe className="w-3 h-3" /> Visit Company
+                    </a>
+                  )}
+                  {exp.appsumoLink && (
+                    <a
+                      href={exp.appsumoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[#ffd700] hover:underline"
+                    >
+                      <img src="https://appsumo2-cdn.appsumo.com/static/images/as-face-logo.svg" className="w-3.5 h-3.5" alt="AppSumo" /> Appsumo Select
+                    </a>
+                  )}
+                  {exp.youtubeLink && (
+                    <a
+                      href={exp.youtubeLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[#FF0000] hover:underline"
+                    >
+                      <Youtube className="w-3.5 h-3.5" /> Watch Video
+                    </a>
+                  )}
+                </div>
               </motion.div>
             ))}
           </div>

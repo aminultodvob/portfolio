@@ -58,6 +58,9 @@ const ExperienceSchema = new mongoose.Schema({
     description: String,
     points: [String],
     skills: [String],
+    link: String,        // Added for company site
+    appsumoLink: String, // Added specifically for Todvob
+    youtubeLink: String, // Added specifically for Todvob
     current: { type: Boolean, default: false },
     order: { type: Number, default: 0 },
 });

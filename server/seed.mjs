@@ -103,6 +103,9 @@ async function seed() {
             period: "10/2023 – Present",
             startDate: new Date("2023-10-01"),
             description: "Building and scaling AI-driven SaaS products.",
+            link: "https://todvob.com",
+            appsumoLink: "https://appsumo.com/products/todvob/",
+            youtubeLink: "https://www.youtube.com/watch?v=ckrx1IXOtmE",
             points: [
                 "Building and scaling AI-driven SaaS products",
                 "300+ monthly active users, 64+ paying customers",

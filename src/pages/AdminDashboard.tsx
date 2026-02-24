@@ -579,6 +579,9 @@ export default function AdminDashboard() {
                                         <div className="grid md:grid-cols-2 gap-4">
                                             <FormField label="Role / Title" name="role" value={formData.role || ""} onChange={handleFieldChange} required placeholder="Senior Engineer" />
                                             <FormField label="Company" name="company" value={formData.company || ""} onChange={handleFieldChange} required placeholder="Company Name" />
+                                            <FormField label="Company Website" name="link" value={formData.link || ""} onChange={handleFieldChange} placeholder="https://..." />
+                                            <FormField label="Appsumo Link" name="appsumoLink" value={formData.appsumoLink || ""} onChange={handleFieldChange} placeholder="https://appsumo.com/..." />
+                                            <FormField label="YouTube Link" name="youtubeLink" value={formData.youtubeLink || ""} onChange={handleFieldChange} placeholder="https://youtube.com/..." />
                                             <FormField label="Period (Text)" name="period" value={formData.period || ""} onChange={handleFieldChange} placeholder="Jan 2022 – Present" />
                                             <FormField label="Start Date (for sorting)" name="startDate" value={formData.startDate ? formData.startDate.split('T')[0] : ""} onChange={handleFieldChange} type="date" />
                                             <FormField label="Skills (comma separated)" name="skills" value={formData.skills || ""} onChange={handleFieldChange} placeholder="Python, GIS, Hydrology" />
