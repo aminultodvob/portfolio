@@ -100,6 +100,9 @@ const ResearchSchema = new mongoose.Schema({
     status: { type: String, enum: ["ongoing", "completed", "planned"], default: "ongoing" },
     tags: [String],
     image: String,
+    link: String,
+    order: { type: Number, default: 0 },
+    createdAt: { type: Date, default: Date.now },
 });
 
 const AboutSchema = new mongoose.Schema({
@@ -113,6 +116,8 @@ const AboutSchema = new mongoose.Schema({
     scholar: String,
     phone: String,
     avatar: String,
+    education: String,
+    languages: String,
 });
 
 const CommunityItemSchema = new mongoose.Schema({
@@ -242,7 +247,7 @@ crudRoutes(app, Experience, "experiences", { startDate: -1 });
 crudRoutes(app, Skill, "skills", { category: 1, level: -1 });
 crudRoutes(app, Award, "awards", { order: 1, createdAt: -1 });
 crudRoutes(app, Publication, "publications", { year: -1 });
-crudRoutes(app, Research, "research", { status: 1 });
+crudRoutes(app, Research, "research", { order: 1, createdAt: -1 });
 crudRoutes(app, CommunityItem, "community", { order: 1, createdAt: -1 });
 
 // About – single document

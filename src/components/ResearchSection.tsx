@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { FlaskConical, Loader2 } from "lucide-react";
+import { FlaskConical, Loader2, ExternalLink } from "lucide-react";
 import { api } from "@/lib/api";
 
 interface Research {
@@ -9,6 +9,7 @@ interface Research {
   description: string;
   status: "ongoing" | "completed" | "planned";
   tags: string[];
+  link?: string;
 }
 
 const FALLBACK: Research[] = [
@@ -89,13 +90,23 @@ const ResearchSection = () => {
                 </div>
                 <h3 className="text-lg font-bold text-foreground mb-2">{area.title}</h3>
                 <p className="text-sm text-muted-foreground mb-4">{area.description}</p>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 mb-4">
                   {(area.tags || []).map((tag) => (
                     <span key={tag} className="text-[10px] px-2 py-1 border border-border rounded-md text-muted-foreground font-mono">
                       {tag}
                     </span>
                   ))}
                 </div>
+                {area.link && (
+                  <a
+                    href={area.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 text-xs text-primary hover:underline font-medium"
+                  >
+                    Read More <ExternalLink className="w-3 h-3" />
+                  </a>
+                )}
               </motion.div>
             ))}
           </div>

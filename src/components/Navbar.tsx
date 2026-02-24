@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 
 const navLinks = [
   { href: "/#about", label: "About" },
+  { href: "/#experience", label: "Experience" },
   { href: "/#education", label: "Education" },
   { href: "/#projects", label: "Projects" },
-  { href: "/#experience", label: "Experience" },
   { href: "/#research", label: "Research" },
   { href: "/awards", label: "Awards" },
   { href: "/#contact", label: "Contact" },

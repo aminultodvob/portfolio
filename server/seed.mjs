@@ -46,7 +46,7 @@ async function seed() {
     // 1. About
     await About.create({
         name: "Aminul Islam",
-        title: "Bridging Engineering & Innovation",
+        title: "Civil Engineer, Lika Limited",
         bio: "Water Resources Engineering graduate with knowledge in hydraulics, hydrology, structures, geotechnical, and environmental engineering. Skilled in leadership, teamwork, and problem solving with strong computer-based and technical expertise. Currently working as a Civil Engineer at Lika Limited and Co-founder & CEO of Todvob Ltd.",
         location: "Bandar Chattogram, Bangladesh",
         email: "aminul@todvob.com",
@@ -235,19 +235,25 @@ async function seed() {
             title: "Drought Assessment",
             description: "Comprehensive analysis of 25 years of drought patterns using remote sensing and GIS to understand climate impact on Bangladesh's agriculture.",
             status: "ongoing",
-            tags: ["Remote Sensing", "GIS", "Climate Analysis"]
+            tags: ["Remote Sensing", "GIS", "Climate Analysis"],
+            order: 1,
+            link: ""
         },
         {
             title: "Brahmaputra Basin Delta Modeling",
             description: "Hydrological modeling of river basin dynamics using HEC-RAS and HEC-HMS for flood preparedness and water resource management.",
             status: "ongoing",
-            tags: ["HEC-RAS", "HEC-HMS", "Hydrology"]
+            tags: ["HEC-RAS", "HEC-HMS", "Hydrology"],
+            order: 2,
+            link: ""
         },
         {
             title: "Google Earth Engine Applications",
             description: "Leveraging satellite imagery and cloud computing for large-scale environmental monitoring and geospatial analysis.",
             status: "ongoing",
-            tags: ["Google Earth Engine", "Python", "Geospatial"]
+            tags: ["Google Earth Engine", "Python", "Geospatial"],
+            order: 3,
+            link: ""
         }
     ]);
 

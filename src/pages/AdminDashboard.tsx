@@ -789,7 +789,10 @@ export default function AdminDashboard() {
                             )}
                             renderForm={
                                 <Modal open={modal?.type === "research"} onClose={() => setModal(null)} title={modal?.item ? "Edit Research" : "Add Research"}>
-                                    <form onSubmit={(e) => handleSave(e, "research", () => withArrayFields(["tags"]))} className="space-y-4">
+                                    <form onSubmit={(e) => handleSave(e, "research", () => ({
+                                        ...withArrayFields(["tags"]),
+                                        order: Number(formData.order || 0)
+                                    }))} className="space-y-4">
                                         <FormField label="Title" name="title" value={formData.title || ""} onChange={handleFieldChange} required placeholder="Research title" />
                                         <FormField label="Description" name="description" value={formData.description || ""} onChange={handleFieldChange} type="textarea" />
                                         <div className="grid md:grid-cols-2 gap-4">
@@ -802,9 +805,12 @@ export default function AdminDashboard() {
                                                 >
                                                     <option value="ongoing">Ongoing</option>
                                                     <option value="completed">Completed</option>
+                                                    <option value="planned">Planned</option>
                                                 </select>
                                             </div>
                                             <FormField label="Tags (comma separated)" name="tags" value={formData.tags || ""} onChange={handleFieldChange} placeholder="GIS, Hydrology" />
+                                            <FormField label="Link" name="link" value={formData.link || ""} onChange={handleFieldChange} placeholder="https://..." />
+                                            <FormField label="Display Order" name="order" value={formData.order || "0"} onChange={handleFieldChange} type="number" />
                                         </div>
                                         <div className="flex justify-end gap-3 pt-2">
                                             <button type="button" onClick={() => setModal(null)} className="px-4 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:bg-secondary/60 transition-all">Cancel</button>
