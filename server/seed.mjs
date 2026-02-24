@@ -87,6 +87,7 @@ async function seed() {
             role: "Civil Engineer",
             company: "Lika Limited",
             period: "01/2026 – Present",
+            startDate: new Date("2026-01-01"),
             description: "Currently working as a Civil Engineer, focusing on engineering design and project execution.",
             points: [
                 "Specializing in civil engineering infrastructure and structural projects",
@@ -100,6 +101,7 @@ async function seed() {
             role: "Co-founder & CEO",
             company: "Todvob Ltd",
             period: "10/2023 – Present",
+            startDate: new Date("2023-10-01"),
             description: "Building and scaling AI-driven SaaS products.",
             points: [
                 "Building and scaling AI-driven SaaS products",
@@ -114,6 +116,7 @@ async function seed() {
             role: "Co-founder & CTO",
             company: "Robotry Bangladesh",
             period: "12/2022 – 12/2024",
+            startDate: new Date("2022-12-01"),
             description: "Robotics & AI STEM education for school-level students.",
             points: [
                 "Robotics & AI STEM education for classes 6–10",
@@ -128,6 +131,7 @@ async function seed() {
             role: "Web Developer",
             company: "Blendin",
             period: "03/2022 – 01/2023",
+            startDate: new Date("2022-03-01"),
             description: "WordPress development, theme/plugin integration.",
             points: [
                 "WordPress development, theme/plugin integration",

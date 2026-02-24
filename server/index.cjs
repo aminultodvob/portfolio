@@ -46,6 +46,7 @@ const ProjectSchema = new mongoose.Schema({
     github: String,
     image: String,
     featured: { type: Boolean, default: false },
+    order: { type: Number, default: 0 },
     createdAt: { type: Date, default: Date.now },
 });
 
@@ -53,6 +54,7 @@ const ExperienceSchema = new mongoose.Schema({
     role: String,
     company: String,
     period: String,
+    startDate: { type: Date }, // Added for accurate sorting
     description: String,
     points: [String],
     skills: [String],
@@ -176,12 +178,12 @@ app.get("/api/auth/verify", auth, (req, res) => {
 });
 
 // ─── CRUD Factory ──────────────────────────────────────────────────────────
-function crudRoutes(router, Model, path) {
+function crudRoutes(router, Model, path, defaultSort = { createdAt: -1 }) {
     // Public GET all
     router.get(`/api/${path}`, async (req, res) => {
         try {
             await connectDB();
-            const items = await Model.find().sort({ createdAt: -1 });
+            const items = await Model.find().sort(defaultSort);
             res.json(items);
         } catch (e) {
             res.status(500).json({ message: e.message });
@@ -232,13 +234,13 @@ function crudRoutes(router, Model, path) {
 }
 
 // ─── Register CRUD Routes ─────────────────────────────────────────────────
-crudRoutes(app, Project, "projects");
-crudRoutes(app, Experience, "experiences");
-crudRoutes(app, Skill, "skills");
-crudRoutes(app, Award, "awards");
-crudRoutes(app, Publication, "publications");
-crudRoutes(app, Research, "research");
-crudRoutes(app, CommunityItem, "community");
+crudRoutes(app, Project, "projects", { createdAt: -1 });
+crudRoutes(app, Experience, "experiences", { startDate: -1 });
+crudRoutes(app, Skill, "skills", { category: 1, level: -1 });
+crudRoutes(app, Award, "awards", { order: 1, createdAt: -1 });
+crudRoutes(app, Publication, "publications", { year: -1 });
+crudRoutes(app, Research, "research", { status: 1 });
+crudRoutes(app, CommunityItem, "community", { order: 1, createdAt: -1 });
 
 // About – single document
 app.get("/api/about", async (req, res) => {

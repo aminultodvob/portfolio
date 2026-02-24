@@ -527,6 +527,7 @@ export default function AdminDashboard() {
                                         <FormField label="Description" name="description" value={formData.description || ""} onChange={handleFieldChange} type="textarea" placeholder="Brief description..." />
                                         <div className="grid md:grid-cols-2 gap-4">
                                             <FormField label="Tags (comma separated)" name="tags" value={formData.tags || ""} onChange={handleFieldChange} placeholder="React, TypeScript, MongoDB" />
+                                            <FormField label="Display Order" name="order" value={formData.order || "0"} onChange={handleFieldChange} type="number" />
                                             <FormField label="Live URL" name="link" value={formData.link || ""} onChange={handleFieldChange} placeholder="https://..." />
                                             <FormField label="GitHub URL" name="github" value={formData.github || ""} onChange={handleFieldChange} placeholder="https://github.com/..." />
                                             <FormField label="Image URL" name="image" value={formData.image || ""} onChange={handleFieldChange} placeholder="https://..." />
@@ -578,8 +579,10 @@ export default function AdminDashboard() {
                                         <div className="grid md:grid-cols-2 gap-4">
                                             <FormField label="Role / Title" name="role" value={formData.role || ""} onChange={handleFieldChange} required placeholder="Senior Engineer" />
                                             <FormField label="Company" name="company" value={formData.company || ""} onChange={handleFieldChange} required placeholder="Company Name" />
-                                            <FormField label="Period" name="period" value={formData.period || ""} onChange={handleFieldChange} placeholder="Jan 2022 – Present" />
+                                            <FormField label="Period (Text)" name="period" value={formData.period || ""} onChange={handleFieldChange} placeholder="Jan 2022 – Present" />
+                                            <FormField label="Start Date (for sorting)" name="startDate" value={formData.startDate ? formData.startDate.split('T')[0] : ""} onChange={handleFieldChange} type="date" />
                                             <FormField label="Skills (comma separated)" name="skills" value={formData.skills || ""} onChange={handleFieldChange} placeholder="Python, GIS, Hydrology" />
+                                            <FormField label="Display Order" name="order" value={formData.order || "0"} onChange={handleFieldChange} type="number" />
                                         </div>
                                         <FormField label="Description (Optional)" name="description" value={formData.description || ""} onChange={handleFieldChange} type="textarea" placeholder="One-line overview..." />
                                         <FormField label="Points (One per line)" name="points" value={formData.points || ""} onChange={handleFieldChange} type="textarea" placeholder="Built a GIS engine\nManaged a team of 5" />
