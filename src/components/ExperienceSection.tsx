@@ -12,8 +12,6 @@ interface Experience {
   points?: string[];
   skills: string[];
   link?: string;
-  appsumoLink?: string;
-  youtubeLink?: string;
   current?: boolean;
 }
 
@@ -39,8 +37,6 @@ const FALLBACK: Experience[] = [
     period: "10/2023 – Present",
     description: "Building and scaling AI-driven SaaS products.",
     link: "https://todvob.com",
-    appsumoLink: "https://appsumo.com/products/todvob/",
-    youtubeLink: "https://www.youtube.com/watch?v=ckrx1IXOtmE",
     points: [
       "Building and scaling AI-driven SaaS products",
       "300+ monthly active users, 64+ paying customers",
@@ -145,26 +141,6 @@ const ExperienceSection = () => {
                       className="inline-flex items-center gap-1.5 text-[11px] font-medium text-primary hover:underline"
                     >
                       <Globe className="w-3 h-3" /> Visit Company
-                    </a>
-                  )}
-                  {exp.appsumoLink && (
-                    <a
-                      href={exp.appsumoLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[#ffd700] hover:underline"
-                    >
-                      <img src="https://appsumo2-cdn.appsumo.com/static/images/as-face-logo.svg" className="w-3.5 h-3.5" alt="AppSumo" /> Appsumo Select
-                    </a>
-                  )}
-                  {exp.youtubeLink && (
-                    <a
-                      href={exp.youtubeLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-[11px] font-medium text-[#FF0000] hover:underline"
-                    >
-                      <Youtube className="w-3.5 h-3.5" /> Watch Video
                     </a>
                   )}
                 </div>

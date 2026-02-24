@@ -530,6 +530,8 @@ export default function AdminDashboard() {
                                             <FormField label="Display Order" name="order" value={formData.order || "0"} onChange={handleFieldChange} type="number" />
                                             <FormField label="Live URL" name="link" value={formData.link || ""} onChange={handleFieldChange} placeholder="https://..." />
                                             <FormField label="GitHub URL" name="github" value={formData.github || ""} onChange={handleFieldChange} placeholder="https://github.com/..." />
+                                            <FormField label="Appsumo Link" name="appsumo" value={formData.appsumo || ""} onChange={handleFieldChange} placeholder="https://appsumo.com/..." />
+                                            <FormField label="YouTube Link" name="youtube" value={formData.youtube || ""} onChange={handleFieldChange} placeholder="https://youtube.com/..." />
                                             <FormField label="Image URL" name="image" value={formData.image || ""} onChange={handleFieldChange} placeholder="https://..." />
                                         </div>
                                         <label className="flex items-center gap-2 cursor-pointer">
@@ -580,8 +582,6 @@ export default function AdminDashboard() {
                                             <FormField label="Role / Title" name="role" value={formData.role || ""} onChange={handleFieldChange} required placeholder="Senior Engineer" />
                                             <FormField label="Company" name="company" value={formData.company || ""} onChange={handleFieldChange} required placeholder="Company Name" />
                                             <FormField label="Company Website" name="link" value={formData.link || ""} onChange={handleFieldChange} placeholder="https://..." />
-                                            <FormField label="Appsumo Link" name="appsumoLink" value={formData.appsumoLink || ""} onChange={handleFieldChange} placeholder="https://appsumo.com/..." />
-                                            <FormField label="YouTube Link" name="youtubeLink" value={formData.youtubeLink || ""} onChange={handleFieldChange} placeholder="https://youtube.com/..." />
                                             <FormField label="Period (Text)" name="period" value={formData.period || ""} onChange={handleFieldChange} placeholder="Jan 2022 – Present" />
                                             <FormField label="Start Date (for sorting)" name="startDate" value={formData.startDate ? formData.startDate.split('T')[0] : ""} onChange={handleFieldChange} type="date" />
                                             <FormField label="Skills (comma separated)" name="skills" value={formData.skills || ""} onChange={handleFieldChange} placeholder="Python, GIS, Hydrology" />
@@ -921,28 +921,30 @@ export default function AdminDashboard() {
             </main>
 
             {/* Delete Confirm Dialog */}
-            {deleteConfirm && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                    <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setDeleteConfirm(null)} />
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="relative z-10 glass-card p-6 w-full max-w-sm"
-                    >
-                        <h3 className="font-bold text-foreground text-lg mb-2">Confirm Delete</h3>
-                        <p className="text-muted-foreground text-sm mb-6">This action cannot be undone.</p>
-                        <div className="flex gap-3 justify-end">
-                            <button onClick={() => setDeleteConfirm(null)} className="px-4 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:bg-secondary/60 transition-all">Cancel</button>
-                            <button
-                                onClick={() => handleDelete(deleteConfirm.type, deleteConfirm.id)}
-                                className="px-4 py-2 text-sm rounded-lg bg-destructive text-destructive-foreground font-semibold flex items-center gap-2"
-                            >
-                                <Trash2 className="w-3.5 h-3.5" /> Delete
-                            </button>
-                        </div>
-                    </motion.div>
-                </div>
-            )}
-        </div>
+            {
+                deleteConfirm && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                        <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" onClick={() => setDeleteConfirm(null)} />
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            className="relative z-10 glass-card p-6 w-full max-w-sm"
+                        >
+                            <h3 className="font-bold text-foreground text-lg mb-2">Confirm Delete</h3>
+                            <p className="text-muted-foreground text-sm mb-6">This action cannot be undone.</p>
+                            <div className="flex gap-3 justify-end">
+                                <button onClick={() => setDeleteConfirm(null)} className="px-4 py-2 text-sm rounded-lg border border-border text-muted-foreground hover:bg-secondary/60 transition-all">Cancel</button>
+                                <button
+                                    onClick={() => handleDelete(deleteConfirm.type, deleteConfirm.id)}
+                                    className="px-4 py-2 text-sm rounded-lg bg-destructive text-destructive-foreground font-semibold flex items-center gap-2"
+                                >
+                                    <Trash2 className="w-3.5 h-3.5" /> Delete
+                                </button>
+                            </div>
+                        </motion.div>
+                    </div>
+                )
+            }
+        </div >
     );
 }

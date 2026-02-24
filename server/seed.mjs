@@ -6,8 +6,8 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 dotenv.config({ path: path.join(__dirname, ".env") });
 
-const ProjectSchema = new mongoose.Schema({ title: String, description: String, tags: [String], link: String, github: String, featured: { type: Boolean, default: false } });
-const ExperienceSchema = new mongoose.Schema({ role: String, company: String, period: String, description: String, points: [String], skills: [String], current: { type: Boolean, default: false } });
+const ProjectSchema = new mongoose.Schema({ title: String, description: String, tags: [String], link: String, github: String, featured: { type: Boolean, default: false }, appsumo: String, youtube: String, order: { type: Number, default: 0 } });
+const ExperienceSchema = new mongoose.Schema({ role: String, company: String, period: String, startDate: Date, description: String, points: [String], skills: [String], link: String, current: { type: Boolean, default: false }, order: { type: Number, default: 0 } });
 const SkillSchema = new mongoose.Schema({ name: String, category: String, level: Number, icon: String });
 const AwardSchema = new mongoose.Schema({
     section: { type: String, enum: ["innovation", "engineering", "leadership"] },
@@ -64,7 +64,10 @@ async function seed() {
             title: "Todvob Ltd",
             description: "AI-driven SaaS product with 300+ monthly active users and 64+ paying customers. Recipient of Microsoft for Startups grant. Best Pitch in Cohort-4 Accelerating Bangladesh.",
             tags: ["SaaS", "AI", "Startup"],
-            featured: true
+            featured: true,
+            appsumo: "https://appsumo.com/products/todvob/",
+            youtube: "https://www.youtube.com/watch?v=ckrx1IXOtmE",
+            order: 1
         },
         {
             title: "Robotry Bangladesh",
@@ -104,8 +107,6 @@ async function seed() {
             startDate: new Date("2023-10-01"),
             description: "Building and scaling AI-driven SaaS products.",
             link: "https://todvob.com",
-            appsumoLink: "https://appsumo.com/products/todvob/",
-            youtubeLink: "https://www.youtube.com/watch?v=ckrx1IXOtmE",
             points: [
                 "Building and scaling AI-driven SaaS products",
                 "300+ monthly active users, 64+ paying customers",

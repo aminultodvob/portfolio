@@ -47,6 +47,8 @@ const ProjectSchema = new mongoose.Schema({
     image: String,
     featured: { type: Boolean, default: false },
     order: { type: Number, default: 0 },
+    appsumo: String,
+    youtube: String,
     createdAt: { type: Date, default: Date.now },
 });
 
@@ -59,8 +61,6 @@ const ExperienceSchema = new mongoose.Schema({
     points: [String],
     skills: [String],
     link: String,        // Added for company site
-    appsumoLink: String, // Added specifically for Todvob
-    youtubeLink: String, // Added specifically for Todvob
     current: { type: Boolean, default: false },
     order: { type: Number, default: 0 },
 });
