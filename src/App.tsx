@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { Analytics } from "@vercel/analytics/react";
+import GoogleAnalytics from "./components/GoogleAnalytics";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import AdminLogin from "./pages/AdminLogin";
@@ -23,6 +24,7 @@ const App = () => (
         <Sonner />
         <Analytics />
         <BrowserRouter>
+          <GoogleAnalytics />
           <AuthProvider>
             <Routes>
               <Route path="/" element={<Index />} />
